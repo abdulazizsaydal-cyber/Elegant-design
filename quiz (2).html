@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bepul konsultatsiya — Elegant Design Studio</title>
+  <meta name="description" content="5 ta savolga javob bering — sizning loyihangiz uchun individual taklif olamiz" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Manrope:wght@200;300;400;500;600;700&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --forest: #3D5042;
+      --forest-dark: #2A3A2E;
+      --forest-deep: #1A241D;
+      --gold: #D4B776;
+      --gold-light: #E8D9A8;
+      --cream: #F5F1E8;
+      --ink: #1A1A1A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body {
+      background: linear-gradient(180deg, var(--forest) 0%, var(--forest-dark) 100%);
+      color: var(--cream);
+      font-family: 'Manrope', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    ::selection { background: var(--gold); color: var(--forest-dark); }
+
+    /* Grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Background glows */
+    .bg-glow-1 {
+      position: fixed;
+      top: 10%;
+      left: 25%;
+      width: 600px;
+      height: 600px;
+      background: rgba(212, 183, 118, 0.15);
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+    .bg-glow-2 {
+      position: fixed;
+      bottom: 10%;
+      right: 25%;
+      width: 500px;
+      height: 500px;
+      background: rgba(95, 118, 101, 0.3);
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      opacity: 0.05;
+      background-image:
+        linear-gradient(to right, var(--gold) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--gold) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    /* Decorative circles */
+    .deco-circle-1, .deco-circle-2 {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 183, 118, 0.1);
+      pointer-events: none;
+    }
+    .deco-circle-1 { width: 200px; height: 200px; top: 100px; left: 5%; }
+    .deco-circle-2 { width: 280px; height: 280px; bottom: 100px; right: 5%; }
+
+    /* Header */
+    header {
+      padding: 32px 24px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+    .logo-mini {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--cream);
+      text-decoration: none;
+      line-height: 1;
+    }
+    .logo-mini .mono {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--gold);
+      font-size: 32px;
+    }
+    .logo-mini .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .logo-mini .script {
+      font-family: 'Dancing Script', cursive;
+      color: var(--gold);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .back-home {
+      position: absolute;
+      left: 24px;
+      top: 36px;
+      color: rgba(245, 241, 232, 0.6);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+    .back-home:hover { color: var(--gold); }
+
+    /* Main container */
+    main {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Intro screen */
+    .intro {
+      text-align: center;
+      animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .eyebrow-line {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .eyebrow-text {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .intro h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+    .intro h1 em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .intro-sub {
+      color: rgba(245, 241, 232, 0.7);
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+    .intro-sub strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--gold);
+      color: var(--forest-dark);
+      padding: 18px 48px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      transition: all 0.5s;
+    }
+    .btn-primary:hover {
+      background: var(--cream);
+      gap: 24px;
+    }
+    .btn-primary svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+    }
+    .btn-primary:hover svg { transform: translateX(4px); }
+
+    .intro-benefits {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 768px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (min-width: 640px) {
+      .intro-benefits { grid-template-columns: repeat(3, 1fr); }
+    }
+    .benefit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: rgba(245, 241, 232, 0.8);
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .benefit-check {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      margin-bottom: 48px;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .progress-label {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .progress-percent {
+      color: rgba(245, 241, 232, 0.6);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    .progress-bar {
+      height: 1px;
+      background: rgba(245, 241, 232, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-fill {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      background: var(--gold);
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Question step */
+    .step {
+      display: none;
+      animation: slideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .step.active { display: block; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .step h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .step-sub {
+      color: rgba(245, 241, 232, 0.6);
+      font-size: 15px;
+      font-weight: 300;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .options { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid rgba(245, 241, 232, 0.15);
+      background: rgba(245, 241, 232, 0.02);
+      cursor: pointer;
+      transition: all 0.4s;
+      text-align: left;
+      font-family: 'Manrope', sans-serif;
+      color: var(--cream);
+      font-size: 15px;
+      font-weight: 300;
+      width: 100%;
+      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+    .option:hover {
+      border-color: var(--gold);
+      background: rgba(212, 183, 118, 0.1);
+    }
+    .option.selected {
+      border-color: var(--gold);
+      background: rgba(212, 183, 118, 0.15);
+    }
+    .option-icon {
+      font-size: 22px;
+      color: var(--gold);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .option:hover .option-icon { opacity: 1; }
+    .option-label {
+      flex: 1;
+    }
+    .option-arrow {
+      width: 16px;
+      height: 16px;
+      color: rgba(245, 241, 232, 0.3);
+      transition: all 0.3s;
+    }
+    .option:hover .option-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .back-btn {
+      margin-top: 32px;
+      background: none;
+      border: none;
+      color: rgba(245, 241, 232, 0.6);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--gold); }
+
+    /* Contact form */
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .contact-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .contact-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .contact-header h2 em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .contact-sub {
+      color: rgba(245, 241, 232, 0.6);
+      font-size: 15px;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .form-container {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      color: rgba(245, 241, 232, 0.6);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245, 241, 232, 0.2);
+      padding: 12px 0;
+      color: var(--cream);
+      font-size: 17px;
+      font-weight: 300;
+      font-family: 'Manrope', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      border-color: var(--gold);
+    }
+    .form-group input::placeholder {
+      color: rgba(245, 241, 232, 0.3);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--forest);
+      padding: 18px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      margin-top: 16px;
+      transition: all 0.5s;
+    }
+    .submit-btn:hover {
+      background: var(--cream);
+    }
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      color: rgba(245, 241, 232, 0.4);
+      font-size: 11px;
+      text-align: center;
+      margin-top: 16px;
+      letter-spacing: 0.03em;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-grid"></div>
+  <div class="deco-circle-1"></div>
+  <div class="deco-circle-2"></div>
+
+  <header>
+    <a href="index.html" class="back-home">← Bosh sahifa</a>
+    <a href="index.html" class="logo-mini">
+      <span class="mono">EL</span>
+      <span class="wordmark">ELEGANT</span>
+      <span class="script">Design studio</span>
+    </a>
+  </header>
+
+  <main>
+    <!-- INTRO -->
+    <div id="intro" class="intro">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">5 ta savol · 2 daqiqa</span>
+        <div class="eyebrow-line"></div>
+      </div>
+
+      <h1>Loyihangiz uchun<br /><em>individual taklif</em></h1>
+
+      <p class="intro-sub">
+        5 ta savolga javob bering — biz sizning ehtiyojlaringizga mos keladigan
+        aniq <strong>narx, vaqt va konsepsiya</strong> bilan bog'lanamiz.
+        Tekin va majburiyatsiz.
+      </p>
+
+      <button class="btn-primary" onclick="startQuiz()">
+        <span>Boshlash</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </button>
+
+      <div class="intro-benefits">
+        <div class="benefit"><span class="benefit-check">✓</span> Tekin konsultatsiya</div>
+        <div class="benefit"><span class="benefit-check">✓</span> 24 soat ichida javob</div>
+        <div class="benefit"><span class="benefit-check">✓</span> Shaxsiy admin</div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz" style="display: none;">
+      <div class="progress-container">
+        <div class="progress-header">
+          <span class="progress-label" id="progressLabel">Savol 1 / 5</span>
+          <span class="progress-percent" id="progressPercent">17%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Step 1: Type -->
+      <div class="step active" data-step="1">
+        <h2>Qanday obyekt uchun dizayn kerak?</h2>
+        <p class="step-sub">Birinchi qadam — obyekt turini aniqlaymiz</p>
+        <div class="options">
+          <button class="option" data-value="Kvartira" style="animation-delay: 0s;">
+            <span class="option-icon">🏠</span>
+            <span class="option-label">Kvartira</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Xususiy uy / Villa" style="animation-delay: 0.07s;">
+            <span class="option-icon">🏡</span>
+            <span class="option-label">Xususiy uy / Villa</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Ofis" style="animation-delay: 0.14s;">
+            <span class="option-icon">🏢</span>
+            <span class="option-label">Ofis</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Restoran / Do'kon" style="animation-delay: 0.21s;">
+            <span class="option-icon">🏪</span>
+            <span class="option-label">Restoran / Do'kon</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Size -->
+      <div class="step" data-step="2">
+        <h2>Obyektning maydoni qancha?</h2>
+        <p class="step-sub">Bu narx va vaqtni hisoblashga yordam beradi</p>
+        <div class="options">
+          <button class="option" data-value="60 m² gacha" style="animation-delay: 0s;">
+            <span class="option-icon">◇</span>
+            <span class="option-label">60 m² gacha</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="60-150 m²" style="animation-delay: 0.07s;">
+            <span class="option-icon">◈</span>
+            <span class="option-label">60-150 m²</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="150-300 m²" style="animation-delay: 0.14s;">
+            <span class="option-icon">◆</span>
+            <span class="option-label">150-300 m²</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="300 m² dan ortiq" style="animation-delay: 0.21s;">
+            <span class="option-icon">❖</span>
+            <span class="option-label">300 m² dan ortiq</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+        <button class="back-btn" onclick="prevStep()">← Orqaga</button>
+      </div>
+
+      <!-- Step 3: Style -->
+      <div class="step" data-step="3">
+        <h2>Qaysi uslub sizga yaqinroq?</h2>
+        <p class="step-sub">Tashvishlanmang — buni jarayonda birga aniqlashtirib olamiz</p>
+        <div class="options">
+          <button class="option" data-value="Minimalizm" style="animation-delay: 0s;">
+            <span class="option-icon">—</span>
+            <span class="option-label">Minimalizm</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Klassik / Neoklassik" style="animation-delay: 0.07s;">
+            <span class="option-icon">✦</span>
+            <span class="option-label">Klassik / Neoklassik</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Modern / Contemporary" style="animation-delay: 0.14s;">
+            <span class="option-icon">◐</span>
+            <span class="option-label">Modern / Contemporary</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Etnik / Sharqona" style="animation-delay: 0.21s;">
+            <span class="option-icon">❋</span>
+            <span class="option-label">Etnik / Sharqona</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Aralash / Hali bilmayman" style="animation-delay: 0.28s; grid-column: 1 / -1;">
+            <span class="option-icon">⌘</span>
+            <span class="option-label">Aralash / Hali bilmayman</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+        <button class="back-btn" onclick="prevStep()">← Orqaga</button>
+      </div>
+
+      <!-- Step 4: Stage -->
+      <div class="step" data-step="4">
+        <h2>Hozir qaysi bosqichdasiz?</h2>
+        <p class="step-sub">Sizga eng mos yondashuvni tanlaymiz</p>
+        <div class="options">
+          <button class="option" data-value="Hali rejalashtiryapman" style="animation-delay: 0s;">
+            <span class="option-icon">○</span>
+            <span class="option-label">Hali rejalashtiryapman</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Tayyor, dizayn kerak" style="animation-delay: 0.07s;">
+            <span class="option-icon">◐</span>
+            <span class="option-label">Tayyor, dizayn kerak</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Ta'mirlash boshlandi" style="animation-delay: 0.14s;">
+            <span class="option-icon">◑</span>
+            <span class="option-label">Ta'mirlash boshlandi</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Mavjudni o'zgartirmoqchiman" style="animation-delay: 0.21s;">
+            <span class="option-icon">●</span>
+            <span class="option-label">Mavjudni o'zgartirmoqchiman</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+        <button class="back-btn" onclick="prevStep()">← Orqaga</button>
+      </div>
+
+      <!-- Step 5: Timeline -->
+      <div class="step" data-step="5">
+        <h2>Qachon boshlashni rejalashtiryapsiz?</h2>
+        <p class="step-sub">Bu bizning resurslarni rejalashtirishga yordam beradi</p>
+        <div class="options">
+          <button class="option" data-value="Imkon qadar tezroq" style="animation-delay: 0s;">
+            <span class="option-icon">◉</span>
+            <span class="option-label">Imkon qadar tezroq</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="1 oy ichida" style="animation-delay: 0.07s;">
+            <span class="option-icon">◎</span>
+            <span class="option-label">1 oy ichida</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="3 oy ichida" style="animation-delay: 0.14s;">
+            <span class="option-icon">◍</span>
+            <span class="option-label">3 oy ichida</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <button class="option" data-value="Hali ko'rib chiqyapman" style="animation-delay: 0.21s;">
+            <span class="option-icon">○</span>
+            <span class="option-label">Hali ko'rib chiqyapman</span>
+            <svg class="option-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+        <button class="back-btn" onclick="prevStep()">← Orqaga</button>
+      </div>
+
+      <!-- Contact form -->
+      <div class="step" data-step="contact">
+        <div class="contact-header">
+          <div class="contact-eyebrow">
+            <span>✦</span>
+            <span>Deyarli tayyor</span>
+            <span>✦</span>
+          </div>
+          <h2>Sizning <em>individual taklifingiz</em> tayyor</h2>
+          <p class="contact-sub">
+            Aloqa ma'lumotlaringizni qoldiring — 24 soat ichida sizga shaxsiy taklif bilan bog'lanamiz
+          </p>
+        </div>
+
+        <form class="form-container" id="contactForm">
+          <div class="form-group">
+            <label>Ismingiz</label>
+            <input type="text" id="name" placeholder="Ismingizni kiriting" required />
+          </div>
+          <div class="form-group">
+            <label>Telefon raqam</label>
+            <input type="tel" id="phone" placeholder="+998 __ ___ __ __" required />
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Taklifni olish</button>
+          <p class="form-note">Ma'lumotlaringiz xavfsiz va uchinchi shaxslarga berilmaydi</p>
+        </form>
+
+        <button class="back-btn" onclick="prevStep()" style="display: block; margin: 32px auto 0;">← Orqaga</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentStep = 0; // 0 = intro, 1-6 = questions, 7 = contact
+    const totalSteps = 5;
+    const answers = {};
+
+    function startQuiz() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+      currentStep = 1;
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+      if (step <= totalSteps) {
+        document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+      } else {
+        document.querySelector('.step[data-step="contact"]').classList.add('active');
+      }
+
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgress() {
+      const progress = (currentStep / (totalSteps + 1)) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+
+      if (currentStep <= totalSteps) {
+        document.getElementById('progressLabel').textContent = `Savol ${currentStep} / ${totalSteps}`;
+      } else {
+        document.getElementById('progressLabel').textContent = 'Yakuniy qadam';
+      }
+      document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      } else if (currentStep === 1) {
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('intro').style.display = 'block';
+        currentStep = 0;
+      }
+    }
+
+    // Option click handlers
+    document.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const step = opt.closest('.step').dataset.step;
+        const value = opt.dataset.value;
+
+        // Save answer
+        answers[`step_${step}`] = value;
+
+        // Visual feedback
+        opt.classList.add('selected');
+
+        // Next step after animation
+        setTimeout(() => {
+          if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+          } else {
+            currentStep = totalSteps + 1;
+            showStep(currentStep);
+          }
+        }, 400);
+      });
+    });
+
+    // Form submit
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!name || !phone) return;
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Yuborilmoqda...';
+
+      // Quiz natijalarini saqlash (localStorage)
+      const data = {
+        name,
+        phone,
+        answers,
+        timestamp: new Date().toISOString(),
+      };
+
+      // localStorage'ga saqlash
+      try {
+        const leads = JSON.parse(localStorage.getItem('elegant_leads') || '[]');
+        leads.push(data);
+        localStorage.setItem('elegant_leads', JSON.stringify(leads));
+      } catch (e) {
+        console.log('Storage error', e);
+      }
+
+      console.log('Lead submitted:', data);
+
+      // ====================================
+      // BU YERGA TELEGRAM BOT INTEGRATSIYASI QO'YING
+      // ====================================
+      // Misol:
+      // const text = `Yangi lead!\n\nIsm: ${name}\nTel: ${phone}\n\n` +
+      //   Object.entries(answers).map(([k,v]) => `${k}: ${v}`).join('\n');
+      // fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      //   method: 'POST',
+      //   headers: {'Content-Type': 'application/json'},
+      //   body: JSON.stringify({ chat_id: 'YOUR_CHAT_ID', text })
+      // });
+
+      // Redirect to thanks
+      setTimeout(() => {
+        // URL parametrlar bilan ism va telefonni yuboramiz
+        const params = new URLSearchParams({ name, phone });
+        window.location.href = 'thanks.html?' + params.toString();
+      }, 800);
+    });
+
+    // Phone format helper
+    document.getElementById('phone').addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.startsWith('998')) v = v.slice(3);
+      if (v.length > 9) v = v.slice(0, 9);
+
+      let formatted = '+998';
+      if (v.length > 0) formatted += ' ' + v.slice(0, 2);
+      if (v.length > 2) formatted += ' ' + v.slice(2, 5);
+      if (v.length > 5) formatted += ' ' + v.slice(5, 7);
+      if (v.length > 7) formatted += ' ' + v.slice(7, 9);
+
+      e.target.value = formatted;
+    });
+  </script>
+</body>
+</html>
